@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: dtbebanking-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: devdtbept
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./create-dbs.sql:/docker-entrypoint-initdb.d/init.sql
+
+  customer-service:
+    image: customer-service:local
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/customerdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: devdtbept
+    ports:
+      - "8081:8080"
+
+  account-service:
+    image: account-service:local
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/accountdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: devdtbept
+    ports:
+      - "8082:8080"
+
+  card-service:
+    image: card-service:local
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/carddb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: devdtbept
+    ports:
+      - "8083:8080"
+
+volumes:
+  pgdata:

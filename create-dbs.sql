@@ -1,0 +1,4 @@
+CREATE DATABASE customerdb;
+CREATE DATABASE accountdb;
+CREATE DATABASE carddb;
+
