@@ -1,4 +1,4 @@
-My understanding of the problem & Solution Outline
+## My understanding of the problem & Solution Outline
 
 To implement a microservices-based banking solution with three micorservices:
 
@@ -34,7 +34,7 @@ docker run --name dtpebanking-postgres -e POSTGRES_PASSWORD=devdtbept -p 5432:54
 Make sure the build script is executable, then run it while at the root dir:
 
 ```bash
-chmod +x build-all.sh && ./build-all.sh
+mvn clean install && chmod +x dtb-build-all.sh && ./dtb-build-all.sh
 ```
 
 
@@ -43,7 +43,7 @@ chmod +x build-all.sh && ./build-all.sh
 Build and start the containers with:
 
 ```bash
-docker-compose -f docker-compose.dev.yml up --build
+docker-compose -f docker-compose.yml up --build
 ```
 
 
